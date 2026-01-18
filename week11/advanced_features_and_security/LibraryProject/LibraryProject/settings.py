@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#User Modifications
+AUTH_USER_MODEL ='relationship_app.CustomUser'
 
 # Application definition
 
@@ -119,7 +121,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR/ 'media'
 
 
 

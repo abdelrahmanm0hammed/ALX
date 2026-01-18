@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
@@ -29,10 +29,13 @@ class UserProfile(models.Model):
     ROLE_CHOICES ={ "ADMIN":"Admin",
         "LIBRARIAN":"Librarian",
         "MEMBER":"Member"}
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     role = models.CharField(choices=ROLE_CHOICES,default='MEMBER'
     )
     def __str__(self):
         return f"{self.user.username} - {self.role}"
 
         
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
