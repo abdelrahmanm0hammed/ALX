@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Book, Library
+from .models import Book, Library, Author
 from django.views.generic import DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -52,8 +52,10 @@ def add_book(request):
 
     if request.method == "POST":
         title = request.POST.get('title')
-        author = request.POST.get('author')
+        author_name = request.POST.get('author')
+        author =Author.objects.get(name= author_name)
         publication_year = request.POST.get('publication_year')
+
         Book.objects.create(title=title, author=author, publication_year= publication_year)
         return redirect('list_books')
     return render(request, 'relationship_app/add_book.html')
