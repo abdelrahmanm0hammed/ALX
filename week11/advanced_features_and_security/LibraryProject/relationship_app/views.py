@@ -66,7 +66,8 @@ def change_book(request, pk):
     book = get_object_or_404(Book , pk=pk)
     if request.method == "POST":
         book.title =request.POST.get('title')
-        book.author = request.POST.get('author')
+        author_name = request.POST.get('author')
+        author =Author.objects.get(name= author_name)
         book.publication_year = request.POST.get('publication_year')
         book.save()
         return redirect('list_books')
