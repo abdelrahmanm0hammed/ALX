@@ -23,7 +23,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_l(cefsh_!9873r#a9rs0)l7a62%mker+^@0jl!^ljuw^9!%o-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+#Security settings
+
+# 1. Prevent Clickjacking
+# Valid options: 'DENY' (no one), 'SAMEORIGIN' (your site only)
+X_FRAME_OPTIONS = 'DENY'
+
+
+# 2. Prevent MIME-type sniffing
+# Prevents browsers from guessing content types, reducing XSS risk
+SECURE_CONTENT_TYPE_NONSNIFF = True
+
+# 3. Enable Browser XSS filtering
+# Activates 'X-XSS-Protection: 1; mode=block'
+# Note: Deprecated in modern browsers but useful for older ones.
+SECURE_BROWSER_XSS_FILTER = True
+
 
 ALLOWED_HOSTS = []
 
