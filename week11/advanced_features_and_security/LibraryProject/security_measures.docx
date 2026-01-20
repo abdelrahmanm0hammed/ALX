@@ -1,0 +1,43 @@
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+#Security settings
+
+# 1. Prevent Clickjacking
+# Valid options: 'DENY' (no one), 'SAMEORIGIN' (your site only)
+X_FRAME_OPTIONS = 'DENY'
+
+
+# 2. Prevent MIME-type sniffing
+# Prevents browsers from guessing content types, reducing XSS risk
+SECURE_CONTENT_TYPE_NONSNIFF = True
+
+# 3. Enable Browser XSS filtering
+# Activates 'X-XSS-Protection: 1; mode=block'
+# Note: Deprecated in modern browsers but useful for older ones.
+SECURE_BROWSER_XSS_FILTER = True
+
+
+
+pip install django-csp
+
+MIDDLEWARE = [
+    # ... other middleware
+    'csp.middleware.CSPMiddleware',
+    # ... other middleware
+]
+
+Configure your policy in settings.py:
+You must define which sources are trusted for different types of content. The settings start with CSP_.
+CSP_DEFAULT_SRC: The default source for all content types if a specific directive isn't provided [1].
+CSP_SCRIPT_SRC: Specifies valid sources for JavaScript [1].
+CSP_STYLE_SRC: Specifies valid sources for CSS stylesheets [1].
+CSP_IMG_SRC: Specifies valid sources for images [1].
+Example settings.py configuration:
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "https://apis.google.com")
+CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
+CSP_IMG_SRC = ("'self'", "data:")
+CSP_CONNECT_SRC = ("'self'",)
+CSP_FONT_SRC = ("'self'", "https://fonts.gstatic.com")
