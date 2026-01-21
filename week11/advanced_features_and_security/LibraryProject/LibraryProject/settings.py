@@ -27,6 +27,16 @@ DEBUG = False
 
 #Security settings
 
+SECURE_SSL_REDIRECT = True
+#to redirect all non-HTTPS requests to HTTPS.
+
+SECURE_HSTS_SECONDS = 31536000 #1 year
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+#o include all subdomains in the HSTS policy and to allow preloading
+
+
 # 1. Prevent Clickjacking
 # Valid options: 'DENY' (no one), 'SAMEORIGIN' (your site only)
 X_FRAME_OPTIONS = 'DENY'
@@ -41,6 +51,13 @@ SECURE_CONTENT_TYPE_NONSNIFF = True
 # Note: Deprecated in modern browsers but useful for older ones.
 SECURE_BROWSER_XSS_FILTER = True
 
+
+#Enforce secure Cookies
+SESSION_COOKIE_SECURE = True
+# to ensure session cookies are only transmitted over HTTPS.
+
+CSRF_COOKIE_SECURE=True
+#to ensure CSRF cookies are only transmitted over HTTPS.    
 
 ALLOWED_HOSTS = []
 
