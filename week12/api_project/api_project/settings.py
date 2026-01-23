@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Authentication
+REST_FRAMEWORK = {"DEFAULT_AUTHENTICATION_CLASSES": 
+                  ("rest_framework.authentication.TokenAuthentication",
+                   "rest_framework.authentication.SessionAuthentication",),
+                   }
+
+
 
 # Application definition
 
@@ -38,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'api',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
