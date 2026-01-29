@@ -1,0 +1,22 @@
+from rest_framework.test import APITestCase
+from django.urls import reverse
+from rest_framework import status
+from .models import Book
+from django.contrib.auth.models import User
+
+class BookAPITests(APITestCase):
+
+    def test_create_book(self):
+        url = reverse('book-create')
+        data = {
+            "title":"my_book",
+            "author":"abood",
+            "publication_year":2005
+        }
+
+        response =self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Book.objects.count(), 1)
+        book = Book.objects.get()
+        self.assertEqual(book.title, "my_book")
+        self.assertEqual(book.publication_year, 2005)
